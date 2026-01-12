@@ -1,0 +1,61 @@
+cmake:
+  application:
+    configuration-dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN'
+    source-dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN'
+  board:
+    name: 'nucleo_wl55jc'
+    path:
+     - '/Users/andriasworld/zephyrproject/zephyr/boards/st/nucleo_wl55jc'
+    qualifiers: 'stm32wl55xx'
+    revision: ''
+  devicetree:
+    bindings-dirs:
+     - '/Users/andriasworld/zephyrproject/zephyr/dts/bindings'
+    files:
+     - '/Users/andriasworld/zephyrproject/zephyr/boards/st/nucleo_wl55jc/nucleo_wl55jc.dts'
+     - 'boards/nucleo_wl55jc.overlay'
+    include-dirs:
+     - '/Users/andriasworld/zephyrproject/modules/hal/ambiq/dts'
+     - '/Users/andriasworld/zephyrproject/modules/hal/atmel/include'
+     - '/Users/andriasworld/zephyrproject/modules/hal/bouffalolab/include'
+     - '/Users/andriasworld/zephyrproject/modules/hal/bouffalolab/include/zephyr'
+     - '/Users/andriasworld/zephyrproject/modules/hal/gigadevice/include'
+     - '/Users/andriasworld/zephyrproject/modules/hal/microchip/include'
+     - '/Users/andriasworld/zephyrproject/modules/hal/microchip/dts'
+     - '/Users/andriasworld/zephyrproject/modules/hal/nuvoton/dts'
+     - '/Users/andriasworld/zephyrproject/modules/hal/nxp/dts'
+     - '/Users/andriasworld/zephyrproject/modules/hal/stm32/dts'
+     - '/Users/andriasworld/zephyrproject/modules/hal/ti/dts'
+     - '/Users/andriasworld/zephyrproject/zephyr/include'
+     - '/Users/andriasworld/zephyrproject/zephyr/include/zephyr'
+     - '/Users/andriasworld/zephyrproject/zephyr/dts/common'
+     - '/Users/andriasworld/zephyrproject/zephyr/dts/vendor'
+     - '/Users/andriasworld/zephyrproject/zephyr/dts/rx'
+     - '/Users/andriasworld/zephyrproject/zephyr/dts/x86'
+     - '/Users/andriasworld/zephyrproject/zephyr/dts/xtensa'
+     - '/Users/andriasworld/zephyrproject/zephyr/dts/sparc'
+     - '/Users/andriasworld/zephyrproject/zephyr/dts/riscv'
+     - '/Users/andriasworld/zephyrproject/zephyr/dts/posix'
+     - '/Users/andriasworld/zephyrproject/zephyr/dts/arm64'
+     - '/Users/andriasworld/zephyrproject/zephyr/dts/arm'
+     - '/Users/andriasworld/zephyrproject/zephyr/dts/arc'
+     - '/Users/andriasworld/zephyrproject/zephyr/dts'
+    user-files:
+     - 'boards/nucleo_wl55jc.overlay'
+  kconfig:
+    files:
+     - '/Users/andriasworld/zephyrproject/zephyr/boards/st/nucleo_wl55jc/nucleo_wl55jc_defconfig'
+     - '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/confs/prj_nucleo_wl55jc.conf'
+    user-files:
+     - 'confs/prj_nucleo_wl55jc.conf'
+  toolchain:
+    name: 'gnuarmemb'
+    path: '/opt/homebrew/opt/arm-none-eabi-gcc'
+  zephyr:
+    version: '4.2.99'
+    zephyr-base: '/Users/andriasworld/zephyrproject/zephyr'
+version: '0.1.0'
+west:
+  command: '/Users/andriasworld/.local/bin/west build -p always -b nucleo_wl55jc -s /Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN -d /Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build -- -DUSER_CACHE_DIR=/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/.zephyr-cache -DDTC_OVERLAY_FILE=boards/nucleo_wl55jc.overlay -DCONF_FILE=confs/prj_nucleo_wl55jc.conf -DUSE_CCACHE=0'
+  topdir: '/Users/andriasworld/zephyrproject'
+  version: '1.4.0'

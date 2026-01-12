@@ -1,0 +1,32 @@
+# Available runners configured by board.cmake.
+runners:
+- stm32cubeprogrammer
+- openocd
+
+# Default flash runner if --runner is not given.
+flash-runner: stm32cubeprogrammer
+
+# Default debug runner if --runner is not given.
+debug-runner: openocd
+
+# Common runner configuration values.
+config:
+  board_dir: /Users/andriasworld/zephyrproject/zephyr/boards/st/nucleo_wl55jc
+  # Build outputs:
+  elf_file: zephyr.elf
+  hex_file: zephyr.hex
+  bin_file: zephyr.bin
+  # Host tools:
+  openocd: /opt/homebrew/bin/openocd
+  openocd_search:
+
+# Runner specific arguments
+args:
+  stm32cubeprogrammer:
+    - --port=swd
+    - --reset-mode=hw
+  openocd:
+    - --cmd-load
+    - flash write_image erase
+    - --cmd-verify
+    - verify_image

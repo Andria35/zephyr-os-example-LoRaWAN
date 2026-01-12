@@ -1,0 +1,44 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Zephyr: Build (with config/overlay)",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "cd ~/zephyrproject && west build -p always -b nucleo_wl55jc -s ${workspaceFolder} -d ${workspaceFolder}/build -- -DUSER_CACHE_DIR=${workspaceFolder}/.zephyr-cache -DDTC_OVERLAY_FILE=boards/nucleo_wl55jc.overlay -DCONF_FILE=confs/prj_nucleo_wl55jc.conf -DUSE_CCACHE=0"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "problemMatcher": ["$gcc"]
+    },
+
+    {
+      "label": "Clean: Build",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-lc", "rm -rf ${workspaceFolder}/build"],
+      "problemMatcher": []
+    },
+
+    {
+      "label": "Clean: Cache",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-lc", "rm -rf ${workspaceFolder}/.zephyr-cache"],
+      "problemMatcher": []
+    },
+
+    {
+      "label": "Zephyr: Flash",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "cd ~/zephyrproject && west flash -d ${workspaceFolder}/build"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}
