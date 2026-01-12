@@ -2,6 +2,7 @@
 #include <zephyr/lorawan/lorawan.h>
 #include <zephyr/kernel.h>
 #include <zephyr/random/random.h>
+#include "drivers/humidity_sensor.h"
 
 /* Customize based on network configuration */
 #define LORAWAN_DEV_EUI			{ 0x76, 0x39, 0x32, 0x35, 0x59, 0x37, 0x91, 0x94 } // Use your own DEV_EUI
@@ -54,6 +55,13 @@ int main(void)
 		LOG_ERR("%s: device not ready.", lora_dev->name);
 		return 0;
 	}
+
+	    /* ---- Init humidity sensor (SI7021) ---- */
+    ret = humidity_sensor_init();
+    if (ret) {
+        LOG_ERR("humidity_sensor_init failed: %d", ret);
+        /* continue anyway */
+    }
 
 #if defined(CONFIG_LORAMAC_REGION_EU868)
 	/* If more than one region Kconfig is selected, app should set region
@@ -111,31 +119,54 @@ int main(void)
 	static uint16_t counter = 0;		
 	uint8_t data[MAX_PAYLOAD_SIZE];
 	
-	while (1) {
-		
-		data[0] = counter; // add a byte with counter value to have some variability in the payload
-		uint8_t len = 1; // length of the data to send
-		ret = lorawan_send(1, data, len,
-				   LORAWAN_MSG_UNCONFIRMED); // Important to set this parameter to LORAWAN_MSG_UNCONFIRMED
-		/*
-		 * Note: The stack may return -EAGAIN if the provided data
-		 * length exceeds the maximum possible one for the region and
-		 * datarate. But since we are just sending the same data here,
-		 * we'll just continue.
-		 */
-		if (ret == -EAGAIN) {
-			LOG_ERR("lorawan_send failed: %d. Continuing...", ret);
-			k_sleep(DELAY);
-			continue;
-		}
+while (1) {
 
-		if (ret < 0) {
-			LOG_ERR("lorawan_send failed: %d", ret);
-			return 0;
-		}
+    /* ---- Read & print humidity sensor ---- */
+    int32_t hum_x100 = 0;
+    int32_t temp_x100 = 0;
 
-		LOG_INF("Data sent!! (data counting #%04d)", counter);
-		counter = (counter < 255) ? counter + 1 : 0;
-		k_sleep(DELAY);
+    ret = humidity_sensor_read(&hum_x100, &temp_x100);
+    if (ret < 0) {
+        LOG_ERR("humidity_sensor_read failed: %d", ret);
+        k_sleep(DELAY);
+        continue;
+    }
+
+    LOG_INF("TEMP: %d.%02d C | HUM: %d.%02d %%",
+            temp_x100 / 100, temp_x100 % 100,
+            hum_x100 / 100, hum_x100 % 100);
+
+    /* ---- Build payload: [temp(int16 LE), hum(uint16 LE)] ---- */
+    int16_t  t = (int16_t)temp_x100;   /* signed */
+    uint16_t h = (uint16_t)hum_x100;   /* unsigned */
+
+    data[0] = (uint8_t)(t & 0xFF);
+    data[1] = (uint8_t)((t >> 8) & 0xFF);
+
+    data[2] = (uint8_t)(h & 0xFF);
+    data[3] = (uint8_t)((h >> 8) & 0xFF);
+
+    uint8_t len = 4;
+
+    /* Print payload for debugging / offline LUA testing */
+    LOG_HEXDUMP_INF(data, len, "Uplink payload:");
+
+    /* ---- Send uplink ---- */
+    ret = lorawan_send(1, data, len, LORAWAN_MSG_UNCONFIRMED);
+
+    if (ret == -EAGAIN) {
+        LOG_ERR("lorawan_send EAGAIN (payload too large for current DR). Continuing...");
+        k_sleep(DELAY);
+        continue;
+    }
+
+    if (ret < 0) {
+        LOG_ERR("lorawan_send failed: %d", ret);
+        return 0;
+    }
+
+    LOG_INF("Data sent!! (temp_x100=%d hum_x100=%d)", temp_x100, hum_x100);
+
+    k_sleep(DELAY);
 	}
 }
