@@ -1,9 +1,0 @@
-west:
-  command: "/Users/andriasworld/.local/bin/west build -p always -b nucleo_wl55jc -s\
-    \ /Users/andriasworld/Programming/iot-engineering/zephyr\u2010os\u2010example\u2010\
-    LoRaWAN -d /Users/andriasworld/Programming/iot-engineering/zephyr\u2010os\u2010\
-    example\u2010LoRaWAN/build -- -DUSER_CACHE_DIR=/Users/andriasworld/Programming/iot-engineering/zephyr\u2010\
-    os\u2010example\u2010LoRaWAN/.zephyr-cache -DDTC_OVERLAY_FILE=boards/nucleo_wl55jc.overlay\
-    \ -DCONF_FILE=confs/prj_nucleo_wl55jc.conf -DUSE_CCACHE=0"
-  topdir: /Users/andriasworld/zephyrproject
-  version: 1.4.0
