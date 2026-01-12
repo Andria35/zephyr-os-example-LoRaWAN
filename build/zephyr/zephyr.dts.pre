@@ -2108,7 +2108,6 @@ stm32_lp_tick_source: &lptim1 {
  aliases {
   ff0 = &accel_interrup;
  };
-
 };
 
 &adc1 {
@@ -2125,8 +2124,15 @@ stm32_lp_tick_source: &lptim1 {
 };
 
 &i2c2 {
-    status = "okay";
-    clock-frequency = <400000>;
+ status = "okay";
+ clock-frequency = <400000>;
+
+
+ si7021: si7021@40 {
+  compatible = "zephyr,i2c-device";
+  reg = <0x40>;
+  label = "SI7021";
+ };
 };
 
 &usart1 {
@@ -2152,7 +2158,7 @@ stm32_lp_tick_source: &lptim1 {
 };
 
 &gpiob {
-    status = "okay";
+ status = "okay";
 };
 # 0 "<command-line>" 2
 # 1 "/Users/andriasworld/zephyrproject/zephyr/misc/empty_file.c"

@@ -22,7 +22,6 @@
 	aliases {
 		ff0 = &accel_interrup;
 	};
-
 };
 
 &adc1 {
@@ -39,8 +38,15 @@
 };
 
 &i2c2 {
-    status = "okay";
-    clock-frequency = <I2C_BITRATE_FAST>; // 400kHz
+	status = "okay";
+	clock-frequency = <I2C_BITRATE_FAST>; // 400kHz
+
+	/* Needed for DT_NODELABEL(si7021) in humidity_sensor.c */
+	si7021: si7021@40 {
+		compatible = "zephyr,i2c-device";
+		reg = <0x40>;
+		label = "SI7021";
+	};
 };
 
 &usart1 {
@@ -66,5 +72,5 @@
 };
 
 &gpiob {
-    status = "okay";
+	status = "okay";
 };

@@ -1,0 +1,53 @@
+# --- Zephyr / west build outputs ---
+build/
+**/build/
+zephyr/build/
+out/
+**/out/
+build-*/
+**/build-*/
+.zephyr-cache/
+**/.zephyr-cache/
+.west/
+
+# --- Generated binaries / artifacts ---
+*.elf
+*.hex
+*.bin
+*.map
+*.lst
+*.d
+*.o
+*.a
+*.so
+*.lib
+*.obj
+
+# --- CMake / Ninja ---
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+.ninja_deps
+.ninja_log
+build.ninja
+
+# --- Settings / storage artifacts ---
+settings/
+nvs/
+*.nvs
+
+# --- Logs ---
+*.log
+
+# --- IDEs / editors ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- macOS ---
+.DS_Store
+.AppleDouble
+.LSOverride

@@ -3710,9 +3710,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_260da
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -o CMakeFiles/cmTC_260da.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_260da.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_260da.a  CMakeFiles/cmTC_260da.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_260da.a && /opt/homebrew/bin/cmake -E touch libcmTC_260da.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_30e37
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -o CMakeFiles/cmTC_30e37.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_30e37.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_30e37.a  CMakeFiles/cmTC_30e37.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_30e37.a && /opt/homebrew/bin/cmake -E touch libcmTC_30e37.a && :
         
       exitCode: 0
   -
@@ -3735,10 +3735,10 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_9b50d
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=unknown-attributes -o CMakeFiles/cmTC_9b50d.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        FAILED: [code=1] CMakeFiles/cmTC_9b50d.dir/simple-main.c.obj 
-        /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=unknown-attributes -o CMakeFiles/cmTC_9b50d.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_21c9b
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=unknown-attributes -o CMakeFiles/cmTC_21c9b.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        FAILED: [code=1] CMakeFiles/cmTC_21c9b.dir/simple-main.c.obj 
+        /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=unknown-attributes -o CMakeFiles/cmTC_21c9b.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
         cc1: error: '-Werror=unknown-attributes': no option '-Wunknown-attributes'; did you mean '-Wno-attributes'?
         ninja: build stopped: subcommand failed.
         
@@ -3763,9 +3763,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_08b19
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=attributes -o CMakeFiles/cmTC_08b19.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_08b19.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_08b19.a  CMakeFiles/cmTC_08b19.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_08b19.a && /opt/homebrew/bin/cmake -E touch libcmTC_08b19.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_6d926
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=attributes -o CMakeFiles/cmTC_6d926.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_6d926.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_6d926.a  CMakeFiles/cmTC_6d926.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_6d926.a && /opt/homebrew/bin/cmake -E touch libcmTC_6d926.a && :
         
       exitCode: 0
   -
@@ -3788,10 +3788,10 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_0f831
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=unsupported-floating-point-opt -o CMakeFiles/cmTC_0f831.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        FAILED: [code=1] CMakeFiles/cmTC_0f831.dir/simple-main.c.obj 
-        /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=unsupported-floating-point-opt -o CMakeFiles/cmTC_0f831.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_7b560
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=unsupported-floating-point-opt -o CMakeFiles/cmTC_7b560.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        FAILED: [code=1] CMakeFiles/cmTC_7b560.dir/simple-main.c.obj 
+        /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=unsupported-floating-point-opt -o CMakeFiles/cmTC_7b560.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
         cc1: error: '-Werror=unsupported-floating-point-opt': no option '-Wunsupported-floating-point-opt'
         ninja: build stopped: subcommand failed.
         
@@ -3816,10 +3816,10 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_14280
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=ignored-optimization-argument -o CMakeFiles/cmTC_14280.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        FAILED: [code=1] CMakeFiles/cmTC_14280.dir/simple-main.c.obj 
-        /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=ignored-optimization-argument -o CMakeFiles/cmTC_14280.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_0a23b
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=ignored-optimization-argument -o CMakeFiles/cmTC_0a23b.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        FAILED: [code=1] CMakeFiles/cmTC_0a23b.dir/simple-main.c.obj 
+        /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=ignored-optimization-argument -o CMakeFiles/cmTC_0a23b.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
         cc1: error: '-Werror=ignored-optimization-argument': no option '-Wignored-optimization-argument'
         ninja: build stopped: subcommand failed.
         
@@ -3844,10 +3844,10 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_22b37
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=attribute-optimize -o CMakeFiles/cmTC_22b37.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        FAILED: [code=1] CMakeFiles/cmTC_22b37.dir/simple-main.c.obj 
-        /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=attribute-optimize -o CMakeFiles/cmTC_22b37.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_a4209
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=attribute-optimize -o CMakeFiles/cmTC_a4209.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        FAILED: [code=1] CMakeFiles/cmTC_a4209.dir/simple-main.c.obj 
+        /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=attribute-optimize -o CMakeFiles/cmTC_a4209.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
         cc1: error: '-Werror=attribute-optimize': no option '-Wattribute-optimize'; did you mean '-Wattribute-alias='?
         ninja: build stopped: subcommand failed.
         
@@ -3872,9 +3872,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_2426f
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=implicit-function-declaration -o CMakeFiles/cmTC_2426f.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_2426f.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_2426f.a  CMakeFiles/cmTC_2426f.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_2426f.a && /opt/homebrew/bin/cmake -E touch libcmTC_2426f.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_3d4d1
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=implicit-function-declaration -o CMakeFiles/cmTC_3d4d1.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_3d4d1.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_3d4d1.a  CMakeFiles/cmTC_3d4d1.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_3d4d1.a && /opt/homebrew/bin/cmake -E touch libcmTC_3d4d1.a && :
         
       exitCode: 0
   -
@@ -3897,9 +3897,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_3733f
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Wno-unused-command-line-argument -o CMakeFiles/cmTC_3733f.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_3733f.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_3733f.a  CMakeFiles/cmTC_3733f.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_3733f.a && /opt/homebrew/bin/cmake -E touch libcmTC_3733f.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_6fb2e
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Wno-unused-command-line-argument -o CMakeFiles/cmTC_6fb2e.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_6fb2e.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_6fb2e.a  CMakeFiles/cmTC_6fb2e.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_6fb2e.a && /opt/homebrew/bin/cmake -E touch libcmTC_6fb2e.a && :
         
       exitCode: 0
   -
@@ -3921,9 +3921,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_1bf81
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_1bf81.dir/have-bitfields-in-packed-structs.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/have-bitfields-in-packed-structs.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_1bf81.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_1bf81.a  CMakeFiles/cmTC_1bf81.dir/have-bitfields-in-packed-structs.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_1bf81.a && /opt/homebrew/bin/cmake -E touch libcmTC_1bf81.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_bdd78
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_bdd78.dir/have-bitfields-in-packed-structs.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/have-bitfields-in-packed-structs.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_bdd78.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_bdd78.a  CMakeFiles/cmTC_bdd78.dir/have-bitfields-in-packed-structs.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_bdd78.a && /opt/homebrew/bin/cmake -E touch libcmTC_bdd78.a && :
         
       exitCode: 0
   -
@@ -3945,9 +3945,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_0ba64
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_0ba64.dir/have-cc-inhibit-loop-to-libcall.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/have-cc-inhibit-loop-to-libcall.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_0ba64.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_0ba64.a  CMakeFiles/cmTC_0ba64.dir/have-cc-inhibit-loop-to-libcall.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_0ba64.a && /opt/homebrew/bin/cmake -E touch libcmTC_0ba64.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_b256f
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_b256f.dir/have-cc-inhibit-loop-to-libcall.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/have-cc-inhibit-loop-to-libcall.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_b256f.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_b256f.a  CMakeFiles/cmTC_b256f.dir/have-cc-inhibit-loop-to-libcall.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_b256f.a && /opt/homebrew/bin/cmake -E touch libcmTC_b256f.a && :
         
       exitCode: 0
   -
@@ -3969,9 +3969,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_cb54f
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_cb54f.dir/have-complex.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/have-complex.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_cb54f.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_cb54f.a  CMakeFiles/cmTC_cb54f.dir/have-complex.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_cb54f.a && /opt/homebrew/bin/cmake -E touch libcmTC_cb54f.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_d1979
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_d1979.dir/have-complex.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/have-complex.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_d1979.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_d1979.a  CMakeFiles/cmTC_d1979.dir/have-complex.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_d1979.a && /opt/homebrew/bin/cmake -E touch libcmTC_d1979.a && :
         
       exitCode: 0
   -
@@ -3980,8 +3980,8 @@ events:
       - "/opt/homebrew/share/cmake/Modules/CheckIncludeFile.cmake:165 (try_compile)"
       - "/Users/andriasworld/zephyrproject/modules/lib/picolibc/CMakeLists.txt:283 (CHECK_INCLUDE_FILE)"
     directories:
-      source: "/Users/andriasworld/Programming/iot-engineering/zephyr\u2010os\u2010example\u2010LoRaWAN/build/CMakeFiles/CMakeScratch/TryCompile-ln5BhZ"
-      binary: "/Users/andriasworld/Programming/iot-engineering/zephyr\u2010os\u2010example\u2010LoRaWAN/build/CMakeFiles/CMakeScratch/TryCompile-ln5BhZ"
+      source: "/Users/andriasworld/Programming/iot-engineering/zephyr\u2010os\u2010example\u2010LoRaWAN/build/CMakeFiles/CMakeScratch/TryCompile-d1szn4"
+      binary: "/Users/andriasworld/Programming/iot-engineering/zephyr\u2010os\u2010example\u2010LoRaWAN/build/CMakeFiles/CMakeScratch/TryCompile-d1szn4"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -3991,13 +3991,13 @@ events:
       variable: "_XTENSA_HAVE_CONFIG_CORE_ISA_H"
       cached: true
       stdout: |
-        Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/CMakeFiles/CMakeScratch/TryCompile-ln5BhZ'
+        Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/CMakeFiles/CMakeScratch/TryCompile-d1szn4'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_4283f
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -nostartfiles -nostdlib -isystem "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include" -isystem "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -fuse-ld=bfd -o CMakeFiles/cmTC_4283f.dir/CheckIncludeFile.c.obj -c '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/CMakeFiles/CMakeScratch/TryCompile-ln5BhZ/CheckIncludeFile.c'
-        FAILED: [code=1] CMakeFiles/cmTC_4283f.dir/CheckIncludeFile.c.obj 
-        /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -nostartfiles -nostdlib -isystem "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include" -isystem "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -fuse-ld=bfd -o CMakeFiles/cmTC_4283f.dir/CheckIncludeFile.c.obj -c '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/CMakeFiles/CMakeScratch/TryCompile-ln5BhZ/CheckIncludeFile.c'
-        /Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/CMakeFiles/CMakeScratch/TryCompile-ln5BhZ/CheckIncludeFile.c:1:10: fatal error: xtensa/config/core-isa.h: No such file or directory
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_e6e6e
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -nostartfiles -nostdlib -isystem "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include" -isystem "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -fuse-ld=bfd -o CMakeFiles/cmTC_e6e6e.dir/CheckIncludeFile.c.obj -c '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/CMakeFiles/CMakeScratch/TryCompile-d1szn4/CheckIncludeFile.c'
+        FAILED: [code=1] CMakeFiles/cmTC_e6e6e.dir/CheckIncludeFile.c.obj 
+        /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -nostartfiles -nostdlib -isystem "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include" -isystem "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -fuse-ld=bfd -o CMakeFiles/cmTC_e6e6e.dir/CheckIncludeFile.c.obj -c '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/CMakeFiles/CMakeScratch/TryCompile-d1szn4/CheckIncludeFile.c'
+        /Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/CMakeFiles/CMakeScratch/TryCompile-d1szn4/CheckIncludeFile.c:1:10: fatal error: xtensa/config/core-isa.h: No such file or directory
             1 | #include <xtensa/config/core-isa.h>
               |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
         compilation terminated.
@@ -4024,9 +4024,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_04289
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -fno-common -o CMakeFiles/cmTC_04289.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_04289.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_04289.a  CMakeFiles/cmTC_04289.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_04289.a && /opt/homebrew/bin/cmake -E touch libcmTC_04289.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_a7751
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -fno-common -o CMakeFiles/cmTC_a7751.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_a7751.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_a7751.a  CMakeFiles/cmTC_a7751.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_a7751.a && /opt/homebrew/bin/cmake -E touch libcmTC_a7751.a && :
         
       exitCode: 0
   -
@@ -4049,9 +4049,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_29dce
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -fno-stack-protector -o CMakeFiles/cmTC_29dce.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_29dce.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_29dce.a  CMakeFiles/cmTC_29dce.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_29dce.a && /opt/homebrew/bin/cmake -E touch libcmTC_29dce.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_57df7
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -fno-stack-protector -o CMakeFiles/cmTC_57df7.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_57df7.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_57df7.a  CMakeFiles/cmTC_57df7.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_57df7.a && /opt/homebrew/bin/cmake -E touch libcmTC_57df7.a && :
         
       exitCode: 0
   -
@@ -4074,9 +4074,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_4e74f
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -ffunction-sections -o CMakeFiles/cmTC_4e74f.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_4e74f.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_4e74f.a  CMakeFiles/cmTC_4e74f.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_4e74f.a && /opt/homebrew/bin/cmake -E touch libcmTC_4e74f.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_e1515
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -ffunction-sections -o CMakeFiles/cmTC_e1515.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_e1515.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_e1515.a  CMakeFiles/cmTC_e1515.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_e1515.a && /opt/homebrew/bin/cmake -E touch libcmTC_e1515.a && :
         
       exitCode: 0
   -
@@ -4099,9 +4099,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_5d64f
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -fdata-sections -o CMakeFiles/cmTC_5d64f.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_5d64f.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_5d64f.a  CMakeFiles/cmTC_5d64f.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_5d64f.a && /opt/homebrew/bin/cmake -E touch libcmTC_5d64f.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_0eeaa
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -fdata-sections -o CMakeFiles/cmTC_0eeaa.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_0eeaa.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_0eeaa.a  CMakeFiles/cmTC_0eeaa.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_0eeaa.a && /opt/homebrew/bin/cmake -E touch libcmTC_0eeaa.a && :
         
       exitCode: 0
   -
@@ -4124,9 +4124,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_c840e
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Wall -o CMakeFiles/cmTC_c840e.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_c840e.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_c840e.a  CMakeFiles/cmTC_c840e.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_c840e.a && /opt/homebrew/bin/cmake -E touch libcmTC_c840e.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_c4552
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Wall -o CMakeFiles/cmTC_c4552.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_c4552.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_c4552.a  CMakeFiles/cmTC_c4552.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_c4552.a && /opt/homebrew/bin/cmake -E touch libcmTC_c4552.a && :
         
       exitCode: 0
   -
@@ -4149,9 +4149,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_f3e4d
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Wextra -o CMakeFiles/cmTC_f3e4d.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_f3e4d.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_f3e4d.a  CMakeFiles/cmTC_f3e4d.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_f3e4d.a && /opt/homebrew/bin/cmake -E touch libcmTC_f3e4d.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_1b4b7
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Wextra -o CMakeFiles/cmTC_1b4b7.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_1b4b7.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_1b4b7.a  CMakeFiles/cmTC_1b4b7.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_1b4b7.a && /opt/homebrew/bin/cmake -E touch libcmTC_1b4b7.a && :
         
       exitCode: 0
   -
@@ -4174,9 +4174,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_01e5b
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Werror=implicit-function-declaration -o CMakeFiles/cmTC_01e5b.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_01e5b.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_01e5b.a  CMakeFiles/cmTC_01e5b.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_01e5b.a && /opt/homebrew/bin/cmake -E touch libcmTC_01e5b.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_bd534
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Werror=implicit-function-declaration -o CMakeFiles/cmTC_bd534.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_bd534.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_bd534.a  CMakeFiles/cmTC_bd534.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_bd534.a && /opt/homebrew/bin/cmake -E touch libcmTC_bd534.a && :
         
       exitCode: 0
   -
@@ -4199,9 +4199,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_17644
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Werror=vla -o CMakeFiles/cmTC_17644.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_17644.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_17644.a  CMakeFiles/cmTC_17644.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_17644.a && /opt/homebrew/bin/cmake -E touch libcmTC_17644.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_8e151
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Werror=vla -o CMakeFiles/cmTC_8e151.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_8e151.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_8e151.a  CMakeFiles/cmTC_8e151.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_8e151.a && /opt/homebrew/bin/cmake -E touch libcmTC_8e151.a && :
         
       exitCode: 0
   -
@@ -4224,9 +4224,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_cc5ef
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Warray-bounds -o CMakeFiles/cmTC_cc5ef.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_cc5ef.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_cc5ef.a  CMakeFiles/cmTC_cc5ef.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_cc5ef.a && /opt/homebrew/bin/cmake -E touch libcmTC_cc5ef.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_925c8
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Warray-bounds -o CMakeFiles/cmTC_925c8.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_925c8.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_925c8.a  CMakeFiles/cmTC_925c8.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_925c8.a && /opt/homebrew/bin/cmake -E touch libcmTC_925c8.a && :
         
       exitCode: 0
   -
@@ -4249,9 +4249,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_16ab6
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Wold-style-definition -o CMakeFiles/cmTC_16ab6.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_16ab6.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_16ab6.a  CMakeFiles/cmTC_16ab6.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_16ab6.a && /opt/homebrew/bin/cmake -E touch libcmTC_16ab6.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_6b759
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Wold-style-definition -o CMakeFiles/cmTC_6b759.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_6b759.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_6b759.a  CMakeFiles/cmTC_6b759.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_6b759.a && /opt/homebrew/bin/cmake -E touch libcmTC_6b759.a && :
         
       exitCode: 0
   -
@@ -4274,9 +4274,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_5d5d3
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -frounding-math -o CMakeFiles/cmTC_5d5d3.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_5d5d3.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_5d5d3.a  CMakeFiles/cmTC_5d5d3.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_5d5d3.a && /opt/homebrew/bin/cmake -E touch libcmTC_5d5d3.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_73f90
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -frounding-math -o CMakeFiles/cmTC_73f90.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_73f90.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_73f90.a  CMakeFiles/cmTC_73f90.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_73f90.a && /opt/homebrew/bin/cmake -E touch libcmTC_73f90.a && :
         
       exitCode: 0
   -
@@ -4299,9 +4299,9 @@ events:
       stdout: |
         Change Dir: '/Users/andriasworld/Programming/iot-engineering/zephyr‐os‐example‐LoRaWAN/build/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_d203e
-        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -fsignaling-nans -o CMakeFiles/cmTC_d203e.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_d203e.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_d203e.a  CMakeFiles/cmTC_d203e.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_d203e.a && /opt/homebrew/bin/cmake -E touch libcmTC_d203e.a && :
+        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_348d8
+        [1/2] /opt/homebrew/opt/arm-none-eabi-gcc/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -fsignaling-nans -o CMakeFiles/cmTC_348d8.dir/simple-main.c.obj -c /Users/andriasworld/zephyrproject/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /opt/homebrew/bin/cmake -E rm -f libcmTC_348d8.a && /opt/homebrew/bin/arm-none-eabi-ar qc libcmTC_348d8.a  CMakeFiles/cmTC_348d8.dir/simple-main.c.obj && /opt/homebrew/bin/arm-none-eabi-ranlib libcmTC_348d8.a && /opt/homebrew/bin/cmake -E touch libcmTC_348d8.a && :
         
       exitCode: 0
   -
