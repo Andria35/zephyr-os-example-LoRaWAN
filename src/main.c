@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <ctype.h>
+#include <math.h> 
 
 /* ============================================================
  * =====================  NEW (GPS)  ===========================
@@ -33,30 +34,28 @@
 LOG_MODULE_REGISTER(lorawan_class_a);
 
 /* ============================================================
- * DEV ONLY: GPS mock fallback so you can continue LoRaWAN work
+ *  GPS mock fallback
  * ============================================================ */
 static void gps_fill_mock(struct gps_fix *fix)
 {
     if (!fix) return;
 
-    /* Example: Madrid (adjust if you want). */
+    /* MOCK location: Tokyo (intentionally NOT Spain) */
     fix->valid = true;
     fix->num_sats = 10;
 
-    fix->latitude_deg  = 40.416800;
+    fix->latitude_deg  = 35.689500;
     fix->lat_hem       = 'N';
 
-    fix->longitude_deg = 3.703800;
-    fix->lon_hem       = 'W';
+    fix->longitude_deg = 139.691700;
+    fix->lon_hem       = 'E';
 
-    fix->altitude_m = 667.0;
+    fix->altitude_m = 40.0;
 
-    /* Optional time placeholders */
     fix->hour = 12;
     fix->minute = 0;
     fix->second = 0;
 
-    /* Optional debug strings */
     fix->last_raw[0] = '\0';
     fix->last_gga[0] = '\0';
     fix->last_rmc[0] = '\0';
@@ -146,6 +145,27 @@ static void lorwan_datarate_changed(enum lorawan_datarate dr)
 	LOG_INF("New Datarate: DR_%d, Max Payload %d", dr, max_size);
 }
 
+/* ============================================================
+ *  Helper: print payload as one continuous hex string
+ * ============================================================ */
+static void log_payload_hex_string(const uint8_t *buf, size_t len)
+{
+    char line[2 * MAX_PAYLOAD_SIZE + 1];
+    size_t out = 0;
+
+    if (!buf) return;
+    if (len > MAX_PAYLOAD_SIZE) len = MAX_PAYLOAD_SIZE;
+
+    for (size_t i = 0; i < len; i++) {
+        if (out + 2 >= sizeof(line)) break;
+        snprintk(&line[out], sizeof(line) - out, "%02x", buf[i]);
+        out += 2;
+    }
+    line[out] = '\0';
+
+    LOG_INF("Uplink payload (hex string): %s", line);
+}
+
 int main(void)
 {
 	const struct device *lora_dev;
@@ -177,16 +197,8 @@ int main(void)
 	ret = leds_init();
     if (ret) LOG_ERR("leds_init failed: %d", ret);
 
-	    /* ============================================================
-     * =====================  NEW (GPS)  ===========================
-     * IMPORTANT:
-     *  - Do NOT call gps_sensor_init() here anymore.
-     *  - The GPS thread (gps_thread.c) owns UART init and reading.
-     *  - We just read the latest snapshot using gps_get_fix().
-     * ============================================================ */
     LOG_INF("GPS thread should auto-start; waiting a moment...");
     k_sleep(K_SECONDS(1));
-    /* ============================================================ */
 
 #if defined(CONFIG_LORAMAC_REGION_EU868)
 	/* If more than one region Kconfig is selected, app should set region
@@ -265,9 +277,8 @@ while (1) {
 
 	
     /* ============================================================
-     * =====================  NEW (GPS)  ===========================
+     * =====================  (GPS)  ===========================
      * 2) READ GPS SNAPSHOT (from gps_thread.c) AND PRINT IT
-     *    - Does NOT change uplink payload yet.
      * ============================================================ */
 
 	 struct gps_fix fix;
@@ -278,23 +289,64 @@ while (1) {
     	gps_fill_mock(&fix);
 	}
 
-	/* Now you can safely use fix.latitude_deg / fix.longitude_deg, etc. */
 	LOG_INF("GPS: sats=%d lat=%.6f %c lon=%.6f %c alt=%.1f",
         	fix.num_sats,
         	fix.latitude_deg, fix.lat_hem,
         	fix.longitude_deg, fix.lon_hem,
         	fix.altitude_m);
-    /* ---- Build payload: [temp(int16 LE), hum(uint16 LE)] ---- */
-    int16_t  t = (int16_t)temp_x100;   /* signed */
-    uint16_t h = (uint16_t)hum_x100;   /* unsigned */
 
-    data[0] = (uint8_t)(t & 0xFF);
-    data[1] = (uint8_t)((t >> 8) & 0xFF);
+	/* ---- Build payload:
+	 * [temp(int16 LE, x100), hum(uint16 LE, x100),
+ 	*  lat(int32 LE, deg*1e6), lon(int32 LE, deg*1e6),
+ 	*  alt(int16 LE, meters)]
+ 	*/
+	int16_t  t = (int16_t)temp_x100;   /* signed */
+	uint16_t h = (uint16_t)hum_x100;   /* unsigned */
 
-    data[2] = (uint8_t)(h & 0xFF);
-    data[3] = (uint8_t)((h >> 8) & 0xFF);
+	/* Convert GPS to signed decimal degrees */
+	double lat_signed = fix.latitude_deg;
+	if (fix.lat_hem == 'S') lat_signed = -lat_signed;
 
-    uint8_t len = 4;
+	double lon_signed = fix.longitude_deg;
+	if (fix.lon_hem == 'W') lon_signed = -lon_signed;
+
+	/* Scale to microdegrees (int32) */
+	int32_t lat_uDeg = (int32_t)lrint(lat_signed * 1000000.0);
+	int32_t lon_uDeg = (int32_t)lrint(lon_signed * 1000000.0);
+
+	/* Altitude in meters (int16) */
+	int16_t alt_m = (int16_t)lrint(fix.altitude_m);
+
+	/* temp */
+	data[0] = (uint8_t)(t & 0xFF);
+	data[1] = (uint8_t)((t >> 8) & 0xFF);
+
+	/* hum */
+	data[2] = (uint8_t)(h & 0xFF);
+	data[3] = (uint8_t)((h >> 8) & 0xFF);
+
+	/* lat (int32 LE) */
+	data[4] = (uint8_t)(lat_uDeg & 0xFF);
+	data[5] = (uint8_t)((lat_uDeg >> 8) & 0xFF);
+	data[6] = (uint8_t)((lat_uDeg >> 16) & 0xFF);
+	data[7] = (uint8_t)((lat_uDeg >> 24) & 0xFF);
+
+	/* lon (int32 LE) */
+	data[8]  = (uint8_t)(lon_uDeg & 0xFF);
+	data[9]  = (uint8_t)((lon_uDeg >> 8) & 0xFF);
+	data[10] = (uint8_t)((lon_uDeg >> 16) & 0xFF);
+	data[11] = (uint8_t)((lon_uDeg >> 24) & 0xFF);
+
+	/* alt (int16 LE, meters) */
+	data[12] = (uint8_t)(alt_m & 0xFF);
+	data[13] = (uint8_t)((alt_m >> 8) & 0xFF);
+
+	uint8_t len = 14;
+
+        /* ============================================================
+         * 4) PRINT FULL PAYLOAD (LOCAL DEBUG)
+         * ============================================================ */
+        log_payload_hex_string(data, len);
 
     /* Print payload for debugging / offline LUA testing */
     LOG_HEXDUMP_INF(data, len, "Uplink payload:");
