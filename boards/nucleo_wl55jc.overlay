@@ -74,3 +74,18 @@
 &gpiob {
 	status = "okay";
 };
+
+/ {
+    leds {
+        compatible = "gpio-leds";
+        rgb_led_r: rgb_led_r { gpios = <&gpiob 8  GPIO_ACTIVE_LOW>; label = "LED_R"; };
+        rgb_led_b: rgb_led_b { gpios = <&gpioa 9  GPIO_ACTIVE_LOW>; label = "LED_B"; };
+        rgb_led_g: rgb_led_g { gpios = <&gpiob 10 GPIO_ACTIVE_LOW>; label = "LED_G"; }; 
+    };
+
+    aliases {
+        led0r = &rgb_led_r;
+        led0g = &rgb_led_g;
+        led0b = &rgb_led_b;
+    };
+};

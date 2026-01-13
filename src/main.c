@@ -3,13 +3,15 @@
 #include <zephyr/kernel.h>
 #include <zephyr/random/random.h>
 #include "drivers/humidity_sensor.h"
+#include "drivers/leds.h"
+
 
 /* Customize based on network configuration */
 #define LORAWAN_DEV_EUI			{ 0x76, 0x39, 0x32, 0x35, 0x59, 0x37, 0x91, 0x94 } // Use your own DEV_EUI
 #define LORAWAN_JOIN_EUI		{ 0x70, 0xB3, 0xD5, 0x7E, 0xD0, 0x00, 0xFC, 0x4D }
 #define LORAWAN_APP_KEY			{ 0xf3, 0x1c, 0x2e, 0x8b, 0xc6, 0x71, 0x28, 0x1d, 0x51, 0x16, 0xf0, 0x8f, 0xf0, 0xb7, 0x92, 0x8f }
 
-#define DELAY K_MSEC(5000)  /* 30 seconds */
+#define DELAY K_MSEC(30000)  /* 30 seconds */
 #define MAX_PAYLOAD_SIZE   30
 #define NUM_MAX_RETRIES    30
 
@@ -80,7 +82,8 @@ int main(void)
 		return 0;
 	}
 	
-	lorawan_enable_adr(false); // enable adaptative data rate. not recommended for mobile (non-static position) devices
+	// change back to false
+	lorawan_enable_adr(true); // enable adaptative data rate. not recommended for mobile (non-static position) devices
 
 	lorawan_register_downlink_callback(&downlink_cb);
 	lorawan_register_dr_changed_callback(lorwan_datarate_changed);
@@ -131,6 +134,10 @@ while (1) {
         k_sleep(DELAY);
         continue;
     }
+
+	ret = leds_init();
+    if (ret) printk("leds_init failed: %d\n", ret);
+	rgb_set(true, false, false); // Red ON
 
     LOG_INF("TEMP: %d.%02d C | HUM: %d.%02d %%",
             temp_x100 / 100, temp_x100 % 100,

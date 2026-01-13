@@ -7,6 +7,7 @@ project(lorawan_etsist)
 target_sources(app PRIVATE
     src/main.c
     src/drivers/humidity_sensor.c
+    src/drivers/leds.c
 )
 
 target_include_directories(app PRIVATE)
