@@ -8,6 +8,15 @@
 #include <string.h>
 #include <ctype.h>
 
+/* ============================================================
+ * =====================  NEW (GPS)  ===========================
+ * gps_thread.c auto-starts at boot (K_THREAD_DEFINE),
+ * initializes UART inside the GPS thread, parses NMEA,
+ * and exposes latest fix via gps_get_fix().
+ * ============================================================ */
+#include "drivers/gps_sensor.h"
+/* ============================================================ */
+
 /* Customize based on network configuration */
 #define LORAWAN_DEV_EUI			{ 0x76, 0x39, 0x32, 0x35, 0x59, 0x37, 0x91, 0x94 } // Use your own DEV_EUI
 #define LORAWAN_JOIN_EUI		{ 0x70, 0xB3, 0xD5, 0x7E, 0xD0, 0x00, 0xFC, 0x4D }
@@ -22,6 +31,36 @@
 #define LOG_LEVEL CONFIG_LOG_DEFAULT_LEVEL
 #include <zephyr/logging/log.h>
 LOG_MODULE_REGISTER(lorawan_class_a);
+
+/* ============================================================
+ * DEV ONLY: GPS mock fallback so you can continue LoRaWAN work
+ * ============================================================ */
+static void gps_fill_mock(struct gps_fix *fix)
+{
+    if (!fix) return;
+
+    /* Example: Madrid (adjust if you want). */
+    fix->valid = true;
+    fix->num_sats = 10;
+
+    fix->latitude_deg  = 40.416800;
+    fix->lat_hem       = 'N';
+
+    fix->longitude_deg = 3.703800;
+    fix->lon_hem       = 'W';
+
+    fix->altitude_m = 667.0;
+
+    /* Optional time placeholders */
+    fix->hour = 12;
+    fix->minute = 0;
+    fix->second = 0;
+
+    /* Optional debug strings */
+    fix->last_raw[0] = '\0';
+    fix->last_gga[0] = '\0';
+    fix->last_rmc[0] = '\0';
+}
 
 static void trim_ascii(char *s)
 {
@@ -138,6 +177,17 @@ int main(void)
 	ret = leds_init();
     if (ret) LOG_ERR("leds_init failed: %d", ret);
 
+	    /* ============================================================
+     * =====================  NEW (GPS)  ===========================
+     * IMPORTANT:
+     *  - Do NOT call gps_sensor_init() here anymore.
+     *  - The GPS thread (gps_thread.c) owns UART init and reading.
+     *  - We just read the latest snapshot using gps_get_fix().
+     * ============================================================ */
+    LOG_INF("GPS thread should auto-start; waiting a moment...");
+    k_sleep(K_SECONDS(1));
+    /* ============================================================ */
+
 #if defined(CONFIG_LORAMAC_REGION_EU868)
 	/* If more than one region Kconfig is selected, app should set region
 	 * before calling lorawan_start()
@@ -212,6 +262,28 @@ while (1) {
             temp_x100 / 100, temp_x100 % 100,
             hum_x100 / 100, hum_x100 % 100);
 
+
+	
+    /* ============================================================
+     * =====================  NEW (GPS)  ===========================
+     * 2) READ GPS SNAPSHOT (from gps_thread.c) AND PRINT IT
+     *    - Does NOT change uplink payload yet.
+     * ============================================================ */
+
+	 struct gps_fix fix;
+	 gps_get_fix(&fix);
+
+	if (!fix.valid) {
+    	LOG_WRN("GPS: no fix -> using MOCK data (dev only)");
+    	gps_fill_mock(&fix);
+	}
+
+	/* Now you can safely use fix.latitude_deg / fix.longitude_deg, etc. */
+	LOG_INF("GPS: sats=%d lat=%.6f %c lon=%.6f %c alt=%.1f",
+        	fix.num_sats,
+        	fix.latitude_deg, fix.lat_hem,
+        	fix.longitude_deg, fix.lon_hem,
+        	fix.altitude_m);
     /* ---- Build payload: [temp(int16 LE), hum(uint16 LE)] ---- */
     int16_t  t = (int16_t)temp_x100;   /* signed */
     uint16_t h = (uint16_t)hum_x100;   /* unsigned */

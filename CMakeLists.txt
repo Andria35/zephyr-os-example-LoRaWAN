@@ -8,6 +8,8 @@ target_sources(app PRIVATE
     src/main.c
     src/drivers/humidity_sensor.c
     src/drivers/leds.c
+    src/drivers/gps_sensor.c
+    src/drivers/gps_thread.c
 )
 
 target_include_directories(app PRIVATE)
