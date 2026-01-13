@@ -4,29 +4,99 @@
 #include <zephyr/random/random.h>
 #include "drivers/humidity_sensor.h"
 #include "drivers/leds.h"
-
+#include <stdbool.h>
+#include <string.h>
+#include <ctype.h>
 
 /* Customize based on network configuration */
 #define LORAWAN_DEV_EUI			{ 0x76, 0x39, 0x32, 0x35, 0x59, 0x37, 0x91, 0x94 } // Use your own DEV_EUI
 #define LORAWAN_JOIN_EUI		{ 0x70, 0xB3, 0xD5, 0x7E, 0xD0, 0x00, 0xFC, 0x4D }
 #define LORAWAN_APP_KEY			{ 0xf3, 0x1c, 0x2e, 0x8b, 0xc6, 0x71, 0x28, 0x1d, 0x51, 0x16, 0xf0, 0x8f, 0xf0, 0xb7, 0x92, 0x8f }
 
-#define DELAY K_MSEC(30000)  /* 30 seconds */
+#define DELAY K_MSEC(10000)  /* 30 seconds */
 #define MAX_PAYLOAD_SIZE   30
 #define NUM_MAX_RETRIES    30
+
+#define DL_LED_PORT 2
 
 #define LOG_LEVEL CONFIG_LOG_DEFAULT_LEVEL
 #include <zephyr/logging/log.h>
 LOG_MODULE_REGISTER(lorawan_class_a);
 
-static void dl_callback(uint8_t port, uint8_t flags, int16_t rssi, int8_t snr, uint8_t len,
-			const uint8_t *hex_data)
+static void trim_ascii(char *s)
 {
-	LOG_INF("Port %d, Pending %d, RSSI %ddB, SNR %ddBm, Time %d", port,
-		flags & LORAWAN_DATA_PENDING, rssi, snr, !!(flags & LORAWAN_TIME_UPDATED));
-	if (hex_data) {
-		LOG_HEXDUMP_INF(hex_data, len, "Payload: ");
-	}
+    if (!s) return;
+
+    /* Trim leading spaces */
+    while (*s && isspace((unsigned char)*s)) {
+        memmove(s, s + 1, strlen(s));
+    }
+
+    /* Trim trailing spaces */
+    size_t n = strlen(s);
+    while (n > 0 && isspace((unsigned char)s[n - 1])) {
+        s[n - 1] = '\0';
+        n--;
+    }
+}
+
+static bool streq_nocase(const char *a, const char *b)
+{
+    if (!a || !b) return false;
+    while (*a && *b) {
+        if (tolower((unsigned char)*a) != tolower((unsigned char)*b)) {
+            return false;
+        }
+        a++; b++;
+    }
+    return (*a == '\0' && *b == '\0');
+}
+
+static void dl_callback(uint8_t port, uint8_t flags, int16_t rssi, int8_t snr,
+                        uint8_t len, const uint8_t *hex_data)
+{
+    LOG_INF("DL: Port %u, Pending %u, RSSI %ddB, SNR %ddBm, TimeUpd %u",
+            port, (flags & LORAWAN_DATA_PENDING) != 0, rssi, snr,
+            (flags & LORAWAN_TIME_UPDATED) != 0);
+
+    if (!hex_data || len == 0) {
+        LOG_WRN("DL: empty payload");
+        return;
+    }
+
+    LOG_HEXDUMP_INF(hex_data, len, "DL payload:");
+
+    /* Only handle our control port */
+    if (port != 2) {
+        LOG_WRN("DL: ignoring port %u (expected port 2)", port);
+        return;
+    }
+
+    /* Copy to a safe, NUL-terminated string */
+    char cmd[16];
+    size_t copy_len = len;
+    if (copy_len >= sizeof(cmd)) {
+        copy_len = sizeof(cmd) - 1;
+    }
+    memcpy(cmd, hex_data, copy_len);
+    cmd[copy_len] = '\0';
+
+    trim_ascii(cmd);
+
+    LOG_INF("DL: cmd='%s'", cmd);
+
+    if (streq_nocase(cmd, "OFF")) {
+        rgb_set(false, false, false);
+        LOG_INF("DL: RGB -> OFF");
+    } else if (streq_nocase(cmd, "Green")) {
+        rgb_set(false, true, false);
+        LOG_INF("DL: RGB -> GREEN");
+    } else if (streq_nocase(cmd, "Red")) {
+        rgb_set(true, false, false);
+        LOG_INF("DL: RGB -> RED");
+    } else {
+        LOG_WRN("DL: unknown command '%s' (expected OFF/Green/Red)", cmd);
+    }
 }
 
 static void lorwan_datarate_changed(enum lorawan_datarate dr)
@@ -64,6 +134,9 @@ int main(void)
         LOG_ERR("humidity_sensor_init failed: %d", ret);
         /* continue anyway */
     }
+
+	ret = leds_init();
+    if (ret) LOG_ERR("leds_init failed: %d", ret);
 
 #if defined(CONFIG_LORAMAC_REGION_EU868)
 	/* If more than one region Kconfig is selected, app should set region
@@ -134,10 +207,6 @@ while (1) {
         k_sleep(DELAY);
         continue;
     }
-
-	ret = leds_init();
-    if (ret) printk("leds_init failed: %d\n", ret);
-	rgb_set(true, false, false); // Red ON
 
     LOG_INF("TEMP: %d.%02d C | HUM: %d.%02d %%",
             temp_x100 / 100, temp_x100 % 100,
