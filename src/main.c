@@ -10,10 +10,8 @@
 #include <math.h> 
 
 /* ============================================================
- * =====================  NEW (GPS)  ===========================
- * gps_thread.c auto-starts at boot (K_THREAD_DEFINE),
- * initializes UART inside the GPS thread, parses NMEA,
- * and exposes latest fix via gps_get_fix().
+ * =====================  Includes  ===========================
+ * Driver Includes
  * ============================================================ */
 #include "drivers/gps_sensor.h"
 #include "drivers/light_sensor.h"
@@ -27,7 +25,7 @@
 #define LORAWAN_JOIN_EUI		{ 0x70, 0xB3, 0xD5, 0x7E, 0xD0, 0x00, 0xFC, 0x4D }
 #define LORAWAN_APP_KEY			{ 0xf3, 0x1c, 0x2e, 0x8b, 0xc6, 0x71, 0x28, 0x1d, 0x51, 0x16, 0xf0, 0x8f, 0xf0, 0xb7, 0x92, 0x8f }
 
-#define DELAY K_MSEC(10000)  /* 30 seconds */
+#define DELAY K_MSEC(30000)  /* 30 seconds */
 #define MAX_PAYLOAD_SIZE   30
 #define NUM_MAX_RETRIES    30
 
@@ -47,7 +45,7 @@ static void gps_fill_mock(struct gps_fix *fix)
 {
     if (!fix) return;
 
-    /* MOCK location: Tokyo (intentionally NOT Spain) */
+    /* MOCK location: Tokyo */
     fix->valid = true;
     fix->num_sats = 10;
 
@@ -73,7 +71,6 @@ int32_t light_raw_to_pct_x10(int16_t raw)
     if (raw < 0) raw = 0;
     if (raw > ADC_MAX_VALUE) raw = ADC_MAX_VALUE;
 
-    /* percentage * 10 (0..1000), with rounding */
     return ((int32_t)raw * 1000 + (ADC_MAX_VALUE / 2)) / ADC_MAX_VALUE;
 }
 
@@ -264,7 +261,7 @@ int main(void)
 	}
 	
 	// change back to false
-	lorawan_enable_adr(true); // enable adaptative data rate. not recommended for mobile (non-static position) devices
+	lorawan_enable_adr(false); // enable adaptative data rate. not recommended for mobile (non-static position) devices
 
 	lorawan_register_downlink_callback(&downlink_cb);
 	lorawan_register_dr_changed_callback(lorwan_datarate_changed);
@@ -483,10 +480,10 @@ while (1) {
 
     uint8_t len = 24;
 
-        /* ============================================================
-         * 4) PRINT FULL PAYLOAD (LOCAL DEBUG)
-         * ============================================================ */
-        log_payload_hex_string(data, len);
+	/* ============================================================
+    * 4) PRINT FULL PAYLOAD (LOCAL DEBUG)
+    * ============================================================ */
+    log_payload_hex_string(data, len);
 
     /* Print payload for debugging / offline LUA testing */
     LOG_HEXDUMP_INF(data, len, "Uplink payload:");
