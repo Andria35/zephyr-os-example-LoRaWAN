@@ -362,24 +362,25 @@ while (1) {
                 (long)(soil_pct_x10 / 10), (long)(soil_pct_x10 % 10));
     }
 
-	/* ============================================================
- * ======================  (RGB SENSOR)  =======================
- *  Read TCS34725 and print raw channels
- * ============================================================ */
-	uint16_t clr = 0, r = 0, g = 0, b = 0;
+    /* ============================================================
+     * ====================== (RGB SENSOR) =========================
+     * 4) Read TCS34725 and print raw channels
+     *
+     * NEW: We will SEND ONLY R,G,B (no dominant color).
+     *      If read fails, send zeros.
+     * ============================================================ */
+    uint16_t clr = 0, r = 0, g = 0, b = 0;
+    uint16_t r_u16 = 0, g_u16 = 0, b_u16 = 0;  /* values that will be encoded */
 
-	ret = rgb_sensor_read(&clr, &r, &g, &b);
-	if (ret < 0) {
-    	LOG_ERR("rgb_sensor_read failed: %d", ret);
-	} else {
-    	const char *dom = "UNKNOWN";
-    	if (r >= g && r >= b) dom = "RED";
-    	else if (g >= r && g >= b) dom = "GREEN";
-    	else if (b >= r && b >= g) dom = "BLUE";
-
-    	LOG_INF("RGB: Clear=%u Red=%u Green=%u Blue=%u Dominant=%s",
-            	clr, r, g, b, dom);
-	}
+    ret = rgb_sensor_read(&clr, &r, &g, &b);
+    if (ret < 0) {
+        LOG_ERR("rgb_sensor_read failed: %d (sending RGB=0,0,0)", ret);
+        r_u16 = 0; g_u16 = 0; b_u16 = 0;
+    } else {
+        r_u16 = r; g_u16 = g; b_u16 = b;
+        LOG_INF("RGB: Clear=%u Red=%u Green=%u Blue=%u",
+                clr, r_u16, g_u16, b_u16);
+    }
 
     /* ============================================================
      * =====================  (GPS)  ===========================
@@ -401,19 +402,16 @@ while (1) {
         	fix.altitude_m);
 
     /* ============================================================
-     * 5) BUILD PAYLOAD (LE)
+     * 6) BUILD PAYLOAD (LE)
      *
      * [temp(int16 LE, x100),
      *  hum(uint16 LE, x100),
      *  light(uint16 LE, pct_x10),
-     *  soil(uint16 LE, pct_x10),           <-- NEW
+     *  soil(uint16 LE, pct_x10),
      *  lat(int32 LE, deg*1e6),
      *  lon(int32 LE, deg*1e6),
-     *  alt(int16 LE, meters)]
-     * ============================================================
-     * ======================  NEW (SOIL)  =========================
-     * We add soil right after light to keep “environmental” block
-     * together: temp/hum/light/soil.
+     *  alt(int16 LE, meters),
+     *  R(uint16 LE), G(uint16 LE), B(uint16 LE)]   <-- NEW
      * ============================================================ */
 
     /* temp/hum */
@@ -450,12 +448,9 @@ while (1) {
     data[4] = (uint8_t)(l & 0xFF);
     data[5] = (uint8_t)((l >> 8) & 0xFF);
 
-    /* ======================  NEW (SOIL)  =========================
-     * soil (2)
-     * ============================================================ */
+    /* soil (2) */
     data[6] = (uint8_t)(s & 0xFF);
     data[7] = (uint8_t)((s >> 8) & 0xFF);
-    /* ====================  END NEW (SOIL)  ===================== */
 
     /* lat (4) */
     data[8]  = (uint8_t)(lat_uDeg & 0xFF);
@@ -473,7 +468,20 @@ while (1) {
     data[16] = (uint8_t)(alt_m & 0xFF);
     data[17] = (uint8_t)((alt_m >> 8) & 0xFF);
 
-    uint8_t len = 18;
+    /* ========================= NEW (RGB) =========================
+     * R,G,B as uint16 LE (6 bytes)
+     * ============================================================ */
+    data[18] = (uint8_t)(r_u16 & 0xFF);
+    data[19] = (uint8_t)((r_u16 >> 8) & 0xFF);
+
+    data[20] = (uint8_t)(g_u16 & 0xFF);
+    data[21] = (uint8_t)((g_u16 >> 8) & 0xFF);
+
+    data[22] = (uint8_t)(b_u16 & 0xFF);
+    data[23] = (uint8_t)((b_u16 >> 8) & 0xFF);
+    /* ======================= END NEW (RGB) ====================== */
+
+    uint8_t len = 24;
 
         /* ============================================================
          * 4) PRINT FULL PAYLOAD (LOCAL DEBUG)
