@@ -10,6 +10,7 @@ target_sources(app PRIVATE
     src/drivers/leds.c
     src/drivers/gps_sensor.c
     src/drivers/gps_thread.c
+    src/drivers/light_sensor.c
 )
 
 target_include_directories(app PRIVATE)

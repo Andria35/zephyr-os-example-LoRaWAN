@@ -16,6 +16,7 @@
  * and exposes latest fix via gps_get_fix().
  * ============================================================ */
 #include "drivers/gps_sensor.h"
+#include "drivers/light_sensor.h"
 /* ============================================================ */
 
 /* Customize based on network configuration */
@@ -28,6 +29,9 @@
 #define NUM_MAX_RETRIES    30
 
 #define DL_LED_PORT 2
+
+#define ADC_RESOLUTION  12
+#define ADC_MAX_VALUE   ((1 << ADC_RESOLUTION) - 1) 
 
 #define LOG_LEVEL CONFIG_LOG_DEFAULT_LEVEL
 #include <zephyr/logging/log.h>
@@ -59,6 +63,15 @@ static void gps_fill_mock(struct gps_fix *fix)
     fix->last_raw[0] = '\0';
     fix->last_gga[0] = '\0';
     fix->last_rmc[0] = '\0';
+}
+
+int32_t light_raw_to_pct_x10(int16_t raw)
+{
+    if (raw < 0) raw = 0;
+    if (raw > ADC_MAX_VALUE) raw = ADC_MAX_VALUE;
+
+    /* percentage * 10 (0..1000), with rounding */
+    return ((int32_t)raw * 1000 + (ADC_MAX_VALUE / 2)) / ADC_MAX_VALUE;
 }
 
 static void trim_ascii(char *s)
@@ -194,6 +207,12 @@ int main(void)
         /* continue anyway */
     }
 
+	ret = light_sensor_init();
+    if (ret) {
+        LOG_ERR("light_sensor_init failed: %d", ret);
+        /* continue anyway */
+    }
+
 	ret = leds_init();
     if (ret) LOG_ERR("leds_init failed: %d", ret);
 
@@ -275,7 +294,17 @@ while (1) {
             hum_x100 / 100, hum_x100 % 100);
 
 
-	
+	int16_t light_raw = 0;
+	int32_t light_mv  = 0;
+
+	ret = light_sensor_read(&light_raw, &light_mv);
+	if (ret < 0) {
+    	LOG_ERR("light_sensor_read failed: %d", ret);
+	} else {
+    	int32_t pct_x10 = light_raw_to_pct_x10(light_raw);
+		LOG_INF("LIGHT: %ld.%01ld %%", (long)(pct_x10 / 10), (long)(pct_x10 % 10));
+	}
+
     /* ============================================================
      * =====================  (GPS)  ===========================
      * 2) READ GPS SNAPSHOT (from gps_thread.c) AND PRINT IT
