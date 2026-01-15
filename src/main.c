@@ -17,6 +17,8 @@
  * ============================================================ */
 #include "drivers/gps_sensor.h"
 #include "drivers/light_sensor.h"
+#include "drivers/soil_sensor.h"
+
 /* ============================================================ */
 
 /* Customize based on network configuration */
@@ -72,6 +74,17 @@ int32_t light_raw_to_pct_x10(int16_t raw)
 
     /* percentage * 10 (0..1000), with rounding */
     return ((int32_t)raw * 1000 + (ADC_MAX_VALUE / 2)) / ADC_MAX_VALUE;
+}
+
+static int32_t soil_mv_to_pct_x10(int32_t mv)
+{
+    if (mv <= 0) {
+        return 0;
+    }
+    if (mv >= 3300) {
+        return 1000; /* 100.0% */
+    }
+    return (mv * 1000) / 3300;
 }
 
 static void trim_ascii(char *s)
@@ -213,6 +226,12 @@ int main(void)
         /* continue anyway */
     }
 
+	ret = soil_sensor_init();
+	if (ret) {
+    	LOG_ERR("soil_sensor_init failed: %d", ret);
+    	/* continue anyway */
+	}
+
 	ret = leds_init();
     if (ret) LOG_ERR("leds_init failed: %d", ret);
 
@@ -313,6 +332,25 @@ while (1) {
                 light_raw, (long)light_mv,
                 (long)(light_pct_x10 / 10), (long)(light_pct_x10 % 10));
     }
+
+	/* ============================================================
+ 	* =====================  (SOIL ADC)  =========================
+ 	* Print-only test: raw + mV + %
+ 	* ============================================================ */
+	int16_t soil_raw = 0;
+	int32_t soil_mv  = 0;
+
+	ret = soil_sensor_read(&soil_raw, &soil_mv);
+	if (ret < 0) {
+    	LOG_ERR("soil_sensor_read failed: %d", ret);
+	} else {
+    	int32_t soil_pct_x10 = soil_mv_to_pct_x10(soil_mv);
+    	LOG_INF("SOIL: raw=%d mv=%ld => %ld.%01ld %%",
+            	(int)soil_raw,
+            	(long)soil_mv,
+            	(long)(soil_pct_x10 / 10),
+            	(long)(soil_pct_x10 % 10));
+	}
 
     /* ============================================================
      * =====================  (GPS)  ===========================
