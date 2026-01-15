@@ -294,16 +294,25 @@ while (1) {
             hum_x100 / 100, hum_x100 % 100);
 
 
-	int16_t light_raw = 0;
-	int32_t light_mv  = 0;
+    /* ============================================================
+     * ====================== (LIGHT)  ========================
+     * 2) READ LIGHT (ADC) + CONVERT TO PERCENTAGE (*10)
+     *    - We store as light_pct_x10 (0..1000)
+     * ============================================================ */
+    int16_t light_raw = 0;
+    int32_t light_mv  = 0;
+    int32_t light_pct_x10 = 0;   /* default 0.0% if read fails */
 
-	ret = light_sensor_read(&light_raw, &light_mv);
-	if (ret < 0) {
-    	LOG_ERR("light_sensor_read failed: %d", ret);
-	} else {
-    	int32_t pct_x10 = light_raw_to_pct_x10(light_raw);
-		LOG_INF("LIGHT: %ld.%01ld %%", (long)(pct_x10 / 10), (long)(pct_x10 % 10));
-	}
+    ret = light_sensor_read(&light_raw, &light_mv);
+    if (ret < 0) {
+        LOG_ERR("light_sensor_read failed: %d (sending 0%%)", ret);
+        light_pct_x10 = 0;
+    } else {
+        light_pct_x10 = light_raw_to_pct_x10(light_raw);
+        LOG_INF("LIGHT: raw=%d mv=%ld -> %ld.%01ld %%",
+                light_raw, (long)light_mv,
+                (long)(light_pct_x10 / 10), (long)(light_pct_x10 % 10));
+    }
 
     /* ============================================================
      * =====================  (GPS)  ===========================
@@ -324,53 +333,73 @@ while (1) {
         	fix.longitude_deg, fix.lon_hem,
         	fix.altitude_m);
 
-	/* ---- Build payload:
-	 * [temp(int16 LE, x100), hum(uint16 LE, x100),
- 	*  lat(int32 LE, deg*1e6), lon(int32 LE, deg*1e6),
- 	*  alt(int16 LE, meters)]
- 	*/
-	int16_t  t = (int16_t)temp_x100;   /* signed */
-	uint16_t h = (uint16_t)hum_x100;   /* unsigned */
+    /* ============================================================
+     * 4) BUILD PAYLOAD (LE)
+     *
+     * [temp(int16 LE, x100),
+     *  hum(uint16 LE, x100),
+     *  light(uint16 LE, pct_x10),          <-- NEW
+     *  lat(int32 LE, deg*1e6),
+     *  lon(int32 LE, deg*1e6),
+     *  alt(int16 LE, meters)]
+     * ============================================================ */
 
-	/* Convert GPS to signed decimal degrees */
-	double lat_signed = fix.latitude_deg;
-	if (fix.lat_hem == 'S') lat_signed = -lat_signed;
+    /* temp/hum */
+    int16_t  t = (int16_t)temp_x100;
+    uint16_t h = (uint16_t)hum_x100;
 
-	double lon_signed = fix.longitude_deg;
-	if (fix.lon_hem == 'W') lon_signed = -lon_signed;
+    /* ======================  NEW (LIGHT)  ========================
+     * Encode light as uint16 LE percent*10 (0..1000)
+     * ============================================================ */
+    uint16_t l = (uint16_t)light_pct_x10;
+    /* ====================  END NEW (LIGHT)  ===================== */
 
-	/* Scale to microdegrees (int32) */
-	int32_t lat_uDeg = (int32_t)lrint(lat_signed * 1000000.0);
-	int32_t lon_uDeg = (int32_t)lrint(lon_signed * 1000000.0);
+    /* Convert GPS to signed decimal degrees */
+    double lat_signed = fix.latitude_deg;
+    if (fix.lat_hem == 'S') lat_signed = -lat_signed;
 
-	/* Altitude in meters (int16) */
-	int16_t alt_m = (int16_t)lrint(fix.altitude_m);
+    double lon_signed = fix.longitude_deg;
+    if (fix.lon_hem == 'W') lon_signed = -lon_signed;
 
-	/* temp */
-	data[0] = (uint8_t)(t & 0xFF);
-	data[1] = (uint8_t)((t >> 8) & 0xFF);
+    /* Scale to microdegrees (int32) */
+    int32_t lat_uDeg = (int32_t)lrint(lat_signed * 1000000.0);
+    int32_t lon_uDeg = (int32_t)lrint(lon_signed * 1000000.0);
 
-	/* hum */
-	data[2] = (uint8_t)(h & 0xFF);
-	data[3] = (uint8_t)((h >> 8) & 0xFF);
+    /* Altitude meters (int16) */
+    int16_t alt_m = (int16_t)lrint(fix.altitude_m);
 
-	/* lat (int32 LE) */
-	data[4] = (uint8_t)(lat_uDeg & 0xFF);
-	data[5] = (uint8_t)((lat_uDeg >> 8) & 0xFF);
-	data[6] = (uint8_t)((lat_uDeg >> 16) & 0xFF);
-	data[7] = (uint8_t)((lat_uDeg >> 24) & 0xFF);
+    /* temp (2) */
+    data[0] = (uint8_t)(t & 0xFF);
+    data[1] = (uint8_t)((t >> 8) & 0xFF);
 
-	/* lon (int32 LE) */
-	data[8]  = (uint8_t)(lon_uDeg & 0xFF);
-	data[9]  = (uint8_t)((lon_uDeg >> 8) & 0xFF);
-	data[10] = (uint8_t)((lon_uDeg >> 16) & 0xFF);
-	data[11] = (uint8_t)((lon_uDeg >> 24) & 0xFF);
+    /* hum (2) */
+    data[2] = (uint8_t)(h & 0xFF);
+    data[3] = (uint8_t)((h >> 8) & 0xFF);
 
-	/* alt (int16 LE, meters) */
-	data[12] = (uint8_t)(alt_m & 0xFF);
-	data[13] = (uint8_t)((alt_m >> 8) & 0xFF);
+    /* ======================  NEW (LIGHT)  ========================
+     * light (2)
+     * ============================================================ */
+    data[4] = (uint8_t)(l & 0xFF);
+    data[5] = (uint8_t)((l >> 8) & 0xFF);
+    /* ====================  END NEW (LIGHT)  ===================== */
 
-	uint8_t len = 14;
+    /* lat (4) */
+    data[6]  = (uint8_t)(lat_uDeg & 0xFF);
+    data[7]  = (uint8_t)((lat_uDeg >> 8) & 0xFF);
+    data[8]  = (uint8_t)((lat_uDeg >> 16) & 0xFF);
+    data[9]  = (uint8_t)((lat_uDeg >> 24) & 0xFF);
+
+    /* lon (4) */
+    data[10] = (uint8_t)(lon_uDeg & 0xFF);
+    data[11] = (uint8_t)((lon_uDeg >> 8) & 0xFF);
+    data[12] = (uint8_t)((lon_uDeg >> 16) & 0xFF);
+    data[13] = (uint8_t)((lon_uDeg >> 24) & 0xFF);
+
+    /* alt (2) */
+    data[14] = (uint8_t)(alt_m & 0xFF);
+    data[15] = (uint8_t)((alt_m >> 8) & 0xFF);
+
+    uint8_t len = 16;
 
         /* ============================================================
          * 4) PRINT FULL PAYLOAD (LOCAL DEBUG)
