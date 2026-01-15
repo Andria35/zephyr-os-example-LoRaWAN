@@ -333,24 +333,26 @@ while (1) {
                 (long)(light_pct_x10 / 10), (long)(light_pct_x10 % 10));
     }
 
-	/* ============================================================
- 	* =====================  (SOIL ADC)  =========================
- 	* Print-only test: raw + mV + %
- 	* ============================================================ */
-	int16_t soil_raw = 0;
-	int32_t soil_mv  = 0;
+    /* ============================================================
+     * 3) READ SOIL (ADC) + CONVERT TO PERCENTAGE (*10)
+     * ============================================================
+     * ======================  NEW (SOIL)  =========================
+     * We keep soil_pct_x10 so we can both print and encode it later.
+     * ============================================================ */
+    int16_t soil_raw = 0;
+    int32_t soil_mv  = 0;
+    int32_t soil_pct_x10 = 0;   /* default 0.0% if read fails */
 
-	ret = soil_sensor_read(&soil_raw, &soil_mv);
-	if (ret < 0) {
-    	LOG_ERR("soil_sensor_read failed: %d", ret);
-	} else {
-    	int32_t soil_pct_x10 = soil_mv_to_pct_x10(soil_mv);
-    	LOG_INF("SOIL: raw=%d mv=%ld => %ld.%01ld %%",
-            	(int)soil_raw,
-            	(long)soil_mv,
-            	(long)(soil_pct_x10 / 10),
-            	(long)(soil_pct_x10 % 10));
-	}
+    ret = soil_sensor_read(&soil_raw, &soil_mv);
+    if (ret < 0) {
+        LOG_ERR("soil_sensor_read failed: %d (sending 0%%)", ret);
+        soil_pct_x10 = 0;
+    } else {
+        soil_pct_x10 = soil_mv_to_pct_x10(soil_mv);
+        LOG_INF("SOIL: raw=%d mv=%ld -> %ld.%01ld %%",
+                (int)soil_raw, (long)soil_mv,
+                (long)(soil_pct_x10 / 10), (long)(soil_pct_x10 % 10));
+    }
 
     /* ============================================================
      * =====================  (GPS)  ===========================
@@ -372,25 +374,28 @@ while (1) {
         	fix.altitude_m);
 
     /* ============================================================
-     * 4) BUILD PAYLOAD (LE)
+     * 5) BUILD PAYLOAD (LE)
      *
      * [temp(int16 LE, x100),
      *  hum(uint16 LE, x100),
-     *  light(uint16 LE, pct_x10),          <-- NEW
+     *  light(uint16 LE, pct_x10),
+     *  soil(uint16 LE, pct_x10),           <-- NEW
      *  lat(int32 LE, deg*1e6),
      *  lon(int32 LE, deg*1e6),
      *  alt(int16 LE, meters)]
+     * ============================================================
+     * ======================  NEW (SOIL)  =========================
+     * We add soil right after light to keep “environmental” block
+     * together: temp/hum/light/soil.
      * ============================================================ */
 
     /* temp/hum */
-    int16_t  t = (int16_t)temp_x100;
-    uint16_t h = (uint16_t)hum_x100;
+    int16_t  t = (int16_t)temp_x100;   /* signed */
+    uint16_t h = (uint16_t)hum_x100;   /* unsigned */
 
-    /* ======================  NEW (LIGHT)  ========================
-     * Encode light as uint16 LE percent*10 (0..1000)
-     * ============================================================ */
-    uint16_t l = (uint16_t)light_pct_x10;
-    /* ====================  END NEW (LIGHT)  ===================== */
+    /* light/soil percent*10 */
+    uint16_t l = (uint16_t)light_pct_x10;  /* 0..1000 */
+    uint16_t s = (uint16_t)soil_pct_x10;   /* 0..1000 */
 
     /* Convert GPS to signed decimal degrees */
     double lat_signed = fix.latitude_deg;
@@ -414,30 +419,34 @@ while (1) {
     data[2] = (uint8_t)(h & 0xFF);
     data[3] = (uint8_t)((h >> 8) & 0xFF);
 
-    /* ======================  NEW (LIGHT)  ========================
-     * light (2)
-     * ============================================================ */
+    /* light (2) */
     data[4] = (uint8_t)(l & 0xFF);
     data[5] = (uint8_t)((l >> 8) & 0xFF);
-    /* ====================  END NEW (LIGHT)  ===================== */
+
+    /* ======================  NEW (SOIL)  =========================
+     * soil (2)
+     * ============================================================ */
+    data[6] = (uint8_t)(s & 0xFF);
+    data[7] = (uint8_t)((s >> 8) & 0xFF);
+    /* ====================  END NEW (SOIL)  ===================== */
 
     /* lat (4) */
-    data[6]  = (uint8_t)(lat_uDeg & 0xFF);
-    data[7]  = (uint8_t)((lat_uDeg >> 8) & 0xFF);
-    data[8]  = (uint8_t)((lat_uDeg >> 16) & 0xFF);
-    data[9]  = (uint8_t)((lat_uDeg >> 24) & 0xFF);
+    data[8]  = (uint8_t)(lat_uDeg & 0xFF);
+    data[9]  = (uint8_t)((lat_uDeg >> 8) & 0xFF);
+    data[10] = (uint8_t)((lat_uDeg >> 16) & 0xFF);
+    data[11] = (uint8_t)((lat_uDeg >> 24) & 0xFF);
 
     /* lon (4) */
-    data[10] = (uint8_t)(lon_uDeg & 0xFF);
-    data[11] = (uint8_t)((lon_uDeg >> 8) & 0xFF);
-    data[12] = (uint8_t)((lon_uDeg >> 16) & 0xFF);
-    data[13] = (uint8_t)((lon_uDeg >> 24) & 0xFF);
+    data[12] = (uint8_t)(lon_uDeg & 0xFF);
+    data[13] = (uint8_t)((lon_uDeg >> 8) & 0xFF);
+    data[14] = (uint8_t)((lon_uDeg >> 16) & 0xFF);
+    data[15] = (uint8_t)((lon_uDeg >> 24) & 0xFF);
 
     /* alt (2) */
-    data[14] = (uint8_t)(alt_m & 0xFF);
-    data[15] = (uint8_t)((alt_m >> 8) & 0xFF);
+    data[16] = (uint8_t)(alt_m & 0xFF);
+    data[17] = (uint8_t)((alt_m >> 8) & 0xFF);
 
-    uint8_t len = 16;
+    uint8_t len = 18;
 
         /* ============================================================
          * 4) PRINT FULL PAYLOAD (LOCAL DEBUG)
