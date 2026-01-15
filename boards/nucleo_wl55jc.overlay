@@ -47,6 +47,13 @@
 		reg = <0x40>;
 		label = "SI7021";
 	};
+
+	tcs34725: tcs34725@29 {
+    	compatible = "zephyr,i2c-device";  /* generic node for raw I2C access */
+        reg = <0x29>;                      /* 7-bit address of TCS34725 */
+        label = "TCS34725";
+        status = "okay";
+    };
 };
 
 &usart1 {

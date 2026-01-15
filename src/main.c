@@ -18,6 +18,7 @@
 #include "drivers/gps_sensor.h"
 #include "drivers/light_sensor.h"
 #include "drivers/soil_sensor.h"
+#include "drivers/rgb_sensor.h"
 
 /* ============================================================ */
 
@@ -232,6 +233,13 @@ int main(void)
     	/* continue anyway */
 	}
 
+	ret = rgb_sensor_init();
+	if (ret < 0) {
+    LOG_ERR("rgb_sensor_init failed: %d", ret);
+	} else {
+    	LOG_INF("rgb_sensor_init OK");
+	}
+
 	ret = leds_init();
     if (ret) LOG_ERR("leds_init failed: %d", ret);
 
@@ -353,6 +361,25 @@ while (1) {
                 (int)soil_raw, (long)soil_mv,
                 (long)(soil_pct_x10 / 10), (long)(soil_pct_x10 % 10));
     }
+
+	/* ============================================================
+ * ======================  (RGB SENSOR)  =======================
+ *  Read TCS34725 and print raw channels
+ * ============================================================ */
+	uint16_t clr = 0, r = 0, g = 0, b = 0;
+
+	ret = rgb_sensor_read(&clr, &r, &g, &b);
+	if (ret < 0) {
+    	LOG_ERR("rgb_sensor_read failed: %d", ret);
+	} else {
+    	const char *dom = "UNKNOWN";
+    	if (r >= g && r >= b) dom = "RED";
+    	else if (g >= r && g >= b) dom = "GREEN";
+    	else if (b >= r && b >= g) dom = "BLUE";
+
+    	LOG_INF("RGB: Clear=%u Red=%u Green=%u Blue=%u Dominant=%s",
+            	clr, r, g, b, dom);
+	}
 
     /* ============================================================
      * =====================  (GPS)  ===========================
